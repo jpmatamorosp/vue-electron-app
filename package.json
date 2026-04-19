@@ -1,0 +1,31 @@
+{
+  "name": "vue-electron-app",
+  "version": "1.0.1",
+  "description": "Vue 3 + Electron app with GitHub auto-update",
+  "author": "jpmatamorosp",
+  "repository": "github:jpmatamorosp/vue-electron-app",
+  "main": "main/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "electron:dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "electron:build": "vite build && electron-builder --win",
+    "electron:publish": "vite build && electron-builder --win --publish always",
+    "prepare": "husky install",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^35.2.0",
+    "electron-builder": "^25.1.8",
+    "husky": "^9.1.7",
+    "vite": "^6.3.2",
+    "wait-on": "^8.0.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9",
+    "vue": "^3.5.13"
+  }
+}
