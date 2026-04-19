@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Vue 3 + Electron app with GitHub auto-update",
   "author": "jpmatamorosp",
   "repository": "github:jpmatamorosp/vue-electron-app",
