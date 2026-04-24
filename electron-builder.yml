@@ -1,4 +1,4 @@
-appId: com.example.vue-electron-app
+appId: com.jpmatamorosp.vue-electron-app
 productName: Vue Electron App
 directories:
   output: dist_electron
@@ -12,7 +12,18 @@ win:
     - target: nsis
       arch:
         - x64
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  artifactName: '${productName}-${version}-${os}-macos-${arch}.${ext}'
 publish:
   provider: github
   owner: jpmatamorosp
   repo: vue-electron-app
+  releaseType: release
+
+
+
