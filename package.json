@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-app",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "description": "Vue 3 + Electron app with GitHub auto-update",
   "author": "jpmatamorosp",
   "repository": "github:jpmatamorosp/vue-electron-app",
@@ -9,18 +9,25 @@
     "dev": "vite",
     "build": "vite build",
     "electron:dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
-    "electron:build": "vite build && electron-builder --win",
-    "electron:publish:win": "node scripts/electron-publish.js --win",
-    "electron:publish:mac": "node scripts/electron-publish.js --mac",
+    "electron:package": "npm run build && electron-forge package",
+    "electron:make": "npm run build && electron-forge make",
+    "electron:make:mac": "npm run build && electron-forge make --platform=darwin",
+    "electron:make:win": "npm run build && electron-forge make --platform=win32",
+    "electron:publish:mac": "npm run build && node scripts/forge-publish.js --platform=darwin",
+    "electron:publish:win": "npm run build && node scripts/forge-publish.js --platform=win32",
     "prepare": "husky install",
-    "postinstall": "node scripts/postinstall.js"
+    "postinstall": "echo \"postinstall: no-op\""
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.8.1",
+    "@electron-forge/maker-dmg": "^7.8.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/maker-zip": "^7.8.1",
+    "@electron-forge/publisher-github": "^7.8.1",
     "@vitejs/plugin-vue": "^5.2.1",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "electron": "^35.2.0",
-    "electron-builder": "^25.1.8",
     "husky": "^9.1.7",
     "vite": "^6.3.2",
     "wait-on": "^8.0.3"
