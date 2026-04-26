@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-app",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Vue 3 + Electron app with GitHub auto-update",
   "author": "jpmatamorosp",
   "repository": "github:jpmatamorosp/vue-electron-app",
@@ -27,7 +27,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
-    "electron": "^35.2.0",
+    "electron": "35.2.0",
     "husky": "^9.1.7",
     "vite": "^6.3.2",
     "wait-on": "^8.0.3"
