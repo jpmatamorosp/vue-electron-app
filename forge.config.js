@@ -8,6 +8,15 @@ const crypto = require('crypto');
 
 const pkg = require('./package.json');
 
+const winSetupIconPath = path.join(__dirname, 'public', 'favicon.ico');
+const hasValidWinSetupIcon = (() => {
+  try {
+    return fs.statSync(winSetupIconPath).size > 0;
+  } catch {
+    return false;
+  }
+})();
+
 const hasNotarizeCredentials =
   Boolean(process.env.APPLE_ID) &&
   Boolean(process.env.APPLE_APP_SPECIFIC_PASSWORD) &&
@@ -66,6 +75,7 @@ module.exports = {
   packagerConfig: {
     appBundleId: 'com.jpmatamorosp.vue-electron-app',
     name: 'Vue Electron App',
+    extraResource: ['build/app-update.yml'],
     osxSign: {
       identity: process.env.APPLE_SIGN_IDENTITY || 'Developer ID Application',
       hardenedRuntime: true,
@@ -88,7 +98,7 @@ module.exports = {
       {
         name: 'vue_electron_app',
         setupExe: `Vue-Electron-App-Setup-${pkg.version}.exe`,
-        setupIcon: 'public/favicon.ico',
+        ...(hasValidWinSetupIcon ? { setupIcon: winSetupIconPath } : {}),
       },
       ['win32']
     ),

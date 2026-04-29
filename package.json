@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-app",
-  "version": "2.0.14",
+  "version": "2.0.22",
   "description": "Vue 3 + Electron app with GitHub auto-update",
   "author": "jpmatamorosp",
   "repository": "github:jpmatamorosp/vue-electron-app",
@@ -12,9 +12,9 @@
     "electron:package": "npm run build && electron-forge package",
     "electron:make": "npm run build && electron-forge make",
     "electron:make:mac": "npm run build && electron-forge make --platform=darwin",
-    "electron:make:win": "npm run build && electron-forge make --platform=win32",
+    "electron:make:win": "npm run build && cross-env NODE_OPTIONS=--no-deprecation electron-forge make --platform=win32",
     "electron:publish:mac": "npm run build && node scripts/forge-publish.js --platform=darwin",
-    "electron:publish:win": "npm run build && node scripts/forge-publish.js --platform=win32",
+    "electron:publish:win": "npm run build && cross-env NODE_OPTIONS=--no-deprecation node scripts/forge-publish.js --platform=win32",
     "prepare": "husky install",
     "postinstall": "echo \"postinstall: no-op\""
   },

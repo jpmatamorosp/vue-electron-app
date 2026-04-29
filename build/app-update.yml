@@ -1,0 +1,5 @@
+provider: github
+owner: jpmatamorosp
+repo: vue-electron-app
+private: false
+updaterCacheDirName: vue-electron-app-updater

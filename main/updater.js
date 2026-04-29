@@ -1,13 +1,57 @@
 const { autoUpdater } = require('electron-updater');
 const { dialog, ipcMain } = require('electron');
+const pkg = require('../package.json');
 
 let mainWindow = null;
 let isCheckingManually = false;
+
+function parseRepoSlug(repositoryValue) {
+  if (!repositoryValue) return null;
+
+  if (typeof repositoryValue === 'string') {
+    const githubShort = repositoryValue.match(/^github:([^/]+)\/([^/]+)$/i);
+    if (githubShort) {
+      return { owner: githubShort[1], repo: githubShort[2] };
+    }
+
+    const githubUrl = repositoryValue.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/i);
+    if (githubUrl) {
+      return { owner: githubUrl[1], repo: githubUrl[2] };
+    }
+  }
+
+  if (repositoryValue && typeof repositoryValue === 'object') {
+    if (repositoryValue.owner && repositoryValue.name) {
+      return { owner: repositoryValue.owner, repo: repositoryValue.name };
+    }
+
+    if (typeof repositoryValue.url === 'string') {
+      return parseRepoSlug(repositoryValue.url);
+    }
+  }
+
+  return null;
+}
+
+function configureFeedUrl() {
+  const repo = parseRepoSlug(pkg.repository);
+  if (!repo) {
+    console.warn('Auto-updater: could not parse GitHub repository from package.json.');
+    return;
+  }
+
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: repo.owner,
+    repo: repo.repo,
+  });
+}
 
 function initUpdater(win) {
   mainWindow = win;
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
+  configureFeedUrl();
 
   autoUpdater.on('checking-for-update', () => {
     sendToRenderer('update-checking');
