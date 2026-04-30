@@ -34,6 +34,7 @@ Set these in `.env` (locally) or as GitHub Actions secrets:
 | `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password for notarization |
 | `APPLE_TEAM_ID` | 10-character Apple team ID |
 | `APPLE_SIGN_IDENTITY` | *(optional)* Override signing identity label |
+| `MAC_ADHOC_SIGN` | Set to `true` only for local ad-hoc testing (not valid for auto-update releases) |
 
 ## Windows release requirements
 
